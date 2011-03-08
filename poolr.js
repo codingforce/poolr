@@ -4,12 +4,26 @@ var poolr = module.exports = function (poolSize)  {
     this.runningJobs = 0;
 };
 
-poolr.prototype.addTask = function (job, callback) {
+poolr.prototype._addTask = function (job, callback) {
     // job must be a function expecting a callback with two parameters.
     // callback is the callback to be used for that.
     this.queue.push({'job' : job, 'callback' : callback});
     return this.runNext();
 };
+
+poolr.prototype.addTask = function () {
+    var args = Array.prototype.slice.call(arguments);
+    var func = args.shift();
+    var originalCallback = args.pop();
+
+    return this._addTask(
+        function (callback) {
+            args.push(callback);
+            return func.apply(func,args);
+        },
+        originalCallback
+    );
+}
 
 poolr.prototype.runNext = function () {
     var that = this;
@@ -34,4 +48,5 @@ poolr.prototype.runNext = function () {
         }
     });
 };
+
 

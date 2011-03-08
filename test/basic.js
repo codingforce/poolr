@@ -11,7 +11,7 @@ var randomSleep = function(callback) {
 
 for (var i=0; i<10; i++) {
     (function(i){
-        randomPool.addTask(randomSleep, function(err, res) {
+        randomPool._addTask(randomSleep, function(err, res) {
             console.log('Task ' + i + 'A returned:' + res);
         });
     })(i);
@@ -19,7 +19,7 @@ for (var i=0; i<10; i++) {
 console.log('Next Round');
 for (var i=0; i<10; i++) {
     (function(i){
-        randomPool.addTask(randomSleep, function(err, res) {
+        randomPool._addTask(randomSleep, function(err, res) {
             console.log('Task ' + i + 'B returned:' + res);
         });
     })(i);
