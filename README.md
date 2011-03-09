@@ -8,8 +8,8 @@
   or remote (database-) connections.
 
   poolr tries to be small and intuitive to use. For a much more advanced
-  implementation of resource pools take a look at node-pool:
-  https://github.com/coopernurse/node-pool/
+  implementation of resource pools take a look at
+  [node-pool](https://github.com/coopernurse/node-pool)
 
   You can add any function you like to a pool:
 
@@ -19,15 +19,15 @@
   For object methods you can either pass the object as a default context as a
   second argument to the constructor of poolr, or use function binding:
 
-  var someObj = new someClass();
-  var thisPool = new poolr(10, someObj);
-  thisPool.addTask(someObj.someMethod, arg1, argN, callback);
+    var someObj = new someClass();
+    var thisPool = new poolr(10, someObj);
+    thisPool.addTask(someObj.someMethod, arg1, argN, callback);
 
   or:
 
-  var someObj = new someClass();
-  var thisPool = new poolr(10);
-  thisPool.addTask(someObj.someMethod.bind(someObj), arg1, argN, callback);
+    var someObj = new someClass();
+    var thisPool = new poolr(10);
+    thisPool.addTask(someObj.someMethod.bind(someObj), arg1, argN, callback);
 
 
 
@@ -35,26 +35,26 @@
 
 A basic example limiting cradle connections to two at a time:
 
-  var cradle = require('cradle'),
-      poolr  = require('poolr');
+    var cradle = require('cradle'),
+        poolr  = require('poolr');
 
-  cradle.setup({host: 'localhost', port: 5984});
-  var conn      = new (cradle.Connection)(),
-      db        = conn.database('test'),
-      couchPool = new poolr(2, db);
+    cradle.setup({host: 'localhost', port: 5984});
+    var conn      = new (cradle.Connection)(),
+        db        = conn.database('test'),
+        couchPool = new poolr(2, db);
 
-  // all cradle functions are called via the pool:
-  couchPool.addTask(db.exists, function(err, result) {
-      if (err) throw err;
-          console.log(result + ' exists');
-      }
-  });
-  couchPool.addTask(db.save, {foo:'bar'}, function(err, res) {
-      if (err) throw err;
-      console.log(res);
-  });
-  // ...and so on.
-  // Add more as fast as you like. Only two functions will be run at a time
+    // all cradle functions are called via the pool:
+    couchPool.addTask(db.exists, function(err, result) {
+        if (err) throw err;
+            console.log(result + ' exists');
+        }
+    });
+    couchPool.addTask(db.save, {foo:'bar'}, function(err, res) {
+        if (err) throw err;
+        console.log(res);
+    });
+    // ...and so on.
+    // Add more as fast as you like. Only two functions will be run at a time
 
 
 ## poolr
@@ -71,7 +71,7 @@ supply it as a second argument.
 
 
 ## addTask()
-`
+
 add a task to the resource pool. Takes the function to be called as the
 first argument. Later arguments are passed to the function.
 The last argument is expected to be a callback to pass back the results.
@@ -79,14 +79,14 @@ If the function is an object method and needs its object context, you
 should either supply the object as a second argument to the poolr constructor
 or bind the method to its object:
 
-  var obj = new someClass();
-  myPool = new poolr(10, obj);
+    var obj = new someClass();
+    myPool = new poolr(10, obj);
 
-  addTask(staticFunction, arg1, argn, callback);
+    addTask(staticFunction, arg1, argn, callback);
 
-  addTask(someObj.someFunction.bind(someObj), arg1, argn, callback);
+    addTask(someObj.someFunction.bind(someObj), arg1, argn, callback);
 
-  myPool.addTask(obj.someFunction, arg1, argn, callback);
+    myPool.addTask(obj.someFunction, arg1, argn, callback);
 
 The last two lines are equivalent.
 
