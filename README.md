@@ -84,11 +84,10 @@ or bind the method to its object:
 
     addTask(staticFunction, arg1, argn, callback);
 
-    addTask(someObj.someFunction.bind(someObj), arg1, argn, callback);
+    addTask(otherObj.someFunction.bind(otherObj), arg1, argn, callback);
 
     myPool.addTask(obj.someFunction, arg1, argn, callback);
 
-The last two lines are equivalent.
 
 ## License
 
