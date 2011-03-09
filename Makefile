@@ -1,6 +1,3 @@
-NODE=`which node`
-THIS_DIR=$(shell pwd)
-
 default: test
 
 test:
