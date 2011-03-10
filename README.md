@@ -88,7 +88,7 @@ or bind the method to its object:
 
     myPool.addTask(obj.someFunction, arg1, argn, callback);
 
-addTask() returns `true` if the task is run immediately and `false` it
+addTask() returns `true` if the task is run immediately and `false` if
 it will be run within the next free slot.
 
 ## License
