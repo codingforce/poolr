@@ -1,6 +1,5 @@
 var should = require('should'),
     poolr = require('../lib/poolr.js'),
-    timeout = setTimeout(function () { throw 'Timeout';  }, 11000),
     delayPool = new poolr(5),
     called = 0;
 
@@ -13,6 +12,9 @@ var randomSleep = function(callback) {
 }
 
 exports['all tasks are called'] = function(){
+
+    var timeout = setTimeout(function () { throw 'Timeout';  }, 11000);
+
     for (var i=0; i<10; i++) {
         (function(i){
             // console.log('Launching task ' + i);

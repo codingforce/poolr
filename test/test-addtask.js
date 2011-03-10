@@ -1,6 +1,5 @@
 var should = require('should'),
     poolr = require('poolr.js'),
-    timeout = setTimeout(function () { throw 'Timeout';  }, 11000),
     delayPool = new poolr(2),
     called = 0,
     running = 0;
@@ -19,6 +18,9 @@ var randomSleep = function(payload, callback) {
 }
 
 exports['test limit is kept'] = function(){
+
+    var timeout = setTimeout(function () { throw 'Timeout';  }, 11000);
+
     for (var i=0; i<10; i++) {
         (function(i){
             running.should.be.below(3);
@@ -28,6 +30,7 @@ exports['test limit is kept'] = function(){
             });
         })(i);
     }
+
     delayPool._addTask(function(cb){return cb(null);},function(dummy) {
         called.should.eql(10);
         clearTimeout(timeout);
