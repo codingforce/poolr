@@ -91,6 +91,27 @@ or bind the method to its object:
 addTask() returns `true` if the task is run immediately and `false` if
 it will be run within the next free slot.
 
+## Events
+
+### throttle
+
+poolr will emit `throttle` when the limit is reached and tasks are being
+queued.
+
+### drain
+
+poolr will emit `drain` as soon as there are free slots in the task queue
+again.
+
+### last
+
+poolr will emit `last` after the last task in the queue has been started.
+
+### idle
+
+poolr will emit `idle` when the last task in the queue exists.
+
+
 ## License
 
 (The MIT License)
