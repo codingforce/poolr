@@ -9,7 +9,9 @@
 
   poolr tries to be small and intuitive to use. For a much more advanced
   implementation of resource pools take a look at
-  [node-pool](https://github.com/coopernurse/node-pool)
+  [node-pool](https://github.com/coopernurse/node-pool).
+  If you only want to pool http request, take a look at node's
+  builtin [http.Agent.maxSockets](http://nodejs.org/docs/v0.4.0/api/http.html#agent.maxSockets).
 
   You can add any function you like to a pool:
 
