@@ -1,6 +1,5 @@
 var should = require('should'),
-    poolr = require('poolr.js'),
-    delayPool = new poolr(2);
+    delayPool = require('poolr.js').createPool(2);
 
 
 var sleep05 = function(callback) {

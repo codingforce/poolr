@@ -1,0 +1,10 @@
+{
+    "name": "poolr"
+  , "version": "0.0.2"
+  , "description": "small wrapper for limiting parallel execution"
+  , "keywords": ["pool", "limit", "parallel", "async"]
+  , "author": "Bernhard Weisshuhn <bkw@codingforce.com>"
+  , "dependencies": {}
+  , "main": "index"
+  , "engines": { "node": "0.4.x" }
+}

@@ -1,1 +1,1 @@
-lib/poolr.js
+module.exports = require('./lib/poolr');

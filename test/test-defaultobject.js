@@ -1,5 +1,5 @@
 var should = require('should'),
-    poolr = require('poolr.js');
+    poolr = require('poolr.js').createPool;
 
 
 var someClass = function(someval) {
@@ -13,7 +13,7 @@ someClass.prototype.someFunc = function (someArg, callback) {
 
 exports['test method context remains'] = function(){
     var obj = new someClass('foo');
-    var myPool = new poolr(1, obj);
+    var myPool = poolr(1, obj);
     myPool.addTask(obj.someFunc, 'bar', function(err, res) {
         err.should.eql('foo');
         res.should.eql('bar');
