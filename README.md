@@ -31,7 +31,7 @@
     var thisPool = poolr.createPool(10);
     thisPool.addTask(someObj.someMethod.bind(someObj), arg1, argN, callback);
 
-
+  
   If you only need one pool, you can just create it during require:
 
     var myPool = require('poolr').createPool(10);
