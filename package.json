@@ -1,10 +1,21 @@
 {
-    "name": "poolr"
-  , "version": "0.0.2"
-  , "description": "small wrapper for limiting parallel execution"
-  , "keywords": ["pool", "limit", "parallel", "async"]
-  , "author": "Bernhard Weisshuhn <bkw@codingforce.com>"
-  , "dependencies": {}
-  , "main": "index"
-  , "engines": { "node": "0.4.x" }
+  "name": "poolr",
+  "version": "0.0.2",
+  "description": "small wrapper for limiting parallel execution",
+  "homepage": "https://github.com/codingforce/poolr",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/codingforce/poolr.git"
+  },
+  "keywords": ["pool", "limit", "parallel", "async"],
+  "author": "Bernhard Weisshuhn <bkw@codingforce.com> (https://github.com/bkw)",
+  "dependencies": {},
+  "main": "index",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "engines": { "node": "0.4.x" }
 }
