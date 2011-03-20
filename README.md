@@ -114,7 +114,7 @@ poolr will emit `last` after the last task in the queue has been started.
 
 ### idle
 
-poolr will emit `idle` after the last task in the queue has finshed.
+poolr will emit `idle` after the last task in the queue has finished.
 
 
 ## License
