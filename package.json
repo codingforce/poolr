@@ -1,7 +1,7 @@
 {
   "name": "poolr",
   "version": "0.0.2",
-  "description": "small wrapper for limiting parallel execution",
+  "description": "limit parallel execution and serialze when limit is reached",
   "homepage": "https://github.com/codingforce/poolr",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   "dependencies": {},
   "main": "index",
   "directories": {
-    "lib": "lib"
+    "lib": "./lib"
   },
   "scripts": {
     "test": "make test"

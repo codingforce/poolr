@@ -1,0 +1,116 @@
+<h1 id="poolrjs">poolr.js</h1>
+
+<p>Small but usefull resource pooling/limiting/throttling library for node.js.</p>
+
+<p>Poolr runs asyncronous tasks in parallel until a configured limit is
+  reached and then switches to serial execution.
+  This helps maximizing the use of limited resources like filedescriptors
+  or remote (database-) connections.</p>
+
+<p>poolr tries to be small and intuitive to use. For a much more advanced
+  implementation of resource pools take a look at
+  <a href="https://github.com/coopernurse/node-pool">node-pool</a></p>
+
+<p>You can add any function you like to a pool:</p>
+
+<p><code>staticFunc(foo, bar, callback)</code> becomes:
+  <code>thisPool.addTask(staticFunc, foo, bar, callback);</code></p>
+
+<p>For object methods you can either pass the object as a default context as a
+  second argument to the constructor of poolr, or use function binding:</p>
+
+<pre><code>var someObj = new someClass();
+var thisPool = new poolr(10, someObj);
+thisPool.addTask(someObj.someMethod, arg1, argN, callback);
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>var someObj = new someClass();
+var thisPool = new poolr(10);
+thisPool.addTask(someObj.someMethod.bind(someObj), arg1, argN, callback);
+</code></pre>
+
+<h2 id="synopsis">Synopsis</h2>
+
+<p>A basic example limiting cradle connections to two at a time:</p>
+
+<pre><code>var cradle = require('cradle'),
+    poolr  = require('poolr');
+
+cradle.setup({host: 'localhost', port: 5984});
+var conn      = new (cradle.Connection)(),
+    db        = conn.database('test'),
+    couchPool = new poolr(2, db);
+
+// all cradle functions are called via the pool:
+couchPool.addTask(db.exists, function(err, result) {
+    if (err) throw err;
+        console.log(result + ' exists');
+    }
+});
+couchPool.addTask(db.save, {foo:'bar'}, function(err, res) {
+    if (err) throw err;
+    console.log(res);
+});
+// ...and so on.
+// Add more as fast as you like. Only two functions will be run at a time
+</code></pre>
+
+<h2 id="poolr">poolr</h2>
+
+<p><code>new poolr()</code> ceates a new reource pool. The constructor takes one integer
+argument representing the maximum number of tasks allowed for using this
+resource in parallel.
+If you want to support a default context for binding functions to, you can
+supply it as a second argument.</p>
+
+<p><code>new poolr(5);</code> creates a resource pool for 5 parallel exections
+  <code>new poolr(5, someObj);</code> creates a resource pool for 5 parallel exections
+  with <code>someObj</code> as <code>this</code> context for tasks.</p>
+
+<h2 id="addtask">addTask()</h2>
+
+<p>add a task to the resource pool. Takes the function to be called as the
+first argument. Later arguments are passed to the function.
+The last argument is expected to be a callback to pass back the results.
+If the function is an object method and needs its object context, you
+should either supply the object as a second argument to the poolr constructor
+or bind the method to its object:</p>
+
+<pre><code>var obj = new someClass();
+myPool = new poolr(10, obj);
+
+addTask(staticFunction, arg1, argn, callback);
+
+addTask(someObj.someFunction.bind(someObj), arg1, argn, callback);
+
+myPool.addTask(obj.someFunction, arg1, argn, callback);
+</code></pre>
+
+<p>The last two lines are equivalent.</p>
+
+<h2 id="license">License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2011 Bernhard Weisshuhn <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#098;&#107;&#119;&#064;&#099;&#111;&#100;&#105;&#110;&#103;&#102;&#111;&#114;&#099;&#101;&#046;&#099;&#111;&#109;">&#098;&#107;&#119;&#064;&#099;&#111;&#100;&#105;&#110;&#103;&#102;&#111;&#114;&#099;&#101;&#046;&#099;&#111;&#109;</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+&lsquo;Software&rsquo;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &lsquo;AS IS&rsquo;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
