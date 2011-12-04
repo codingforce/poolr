@@ -1,6 +1,6 @@
 {
   "name": "poolr",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "limit parallel execution and serialze when limit is reached",
   "homepage": "https://github.com/codingforce/poolr",
   "repository": {
@@ -9,6 +9,9 @@
   },
   "keywords": ["pool", "limit", "parallel", "async"],
   "author": "Bernhard Weisshuhn <bkw@codingforce.com> (https://github.com/bkw)",
+  "contributors": [
+    { "name": "Seth LaForge" }
+  ],
   "dependencies": {},
   "devDependencies": {
       "mocha" : "0.2.x",
