@@ -1,5 +1,5 @@
 var should = require('should'),
-    poolr = require('poolr.js').createPool;
+    poolr = require('../lib/poolr.js').createPool;
 
 
 var someClass = function(someval) {

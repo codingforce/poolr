@@ -1,9 +1,6 @@
 default: test
 
 test:
-	expresso -I lib test/*
-
-coverage:
-	expresso -I lib --cov test/*
+	@./node_modules/.bin/mocha --ui exports --reporter list test/*
 
 .PHONY: test

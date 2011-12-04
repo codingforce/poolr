@@ -1,5 +1,5 @@
 var should = require('should'),
-    poolr = require('poolr'),
+    poolr = require('../lib/poolr'),
     fs     = require('fs');
 
 var pkg = JSON.parse(fs.readFileSync(__dirname + '/../package.json'));

@@ -1,5 +1,5 @@
 var should = require('should'),
-    delayPool = require('poolr.js').createPool(2),
+    delayPool = require('../lib/poolr.js').createPool(2),
     called = 0,
     running = 0;
 

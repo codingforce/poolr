@@ -1,4 +1,4 @@
-var poolr = require('poolr.js'),
+var poolr = require('../lib/poolr.js'),
     should = require('should');
 
 module.exports = {

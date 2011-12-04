@@ -10,6 +10,10 @@
   "keywords": ["pool", "limit", "parallel", "async"],
   "author": "Bernhard Weisshuhn <bkw@codingforce.com> (https://github.com/bkw)",
   "dependencies": {},
+  "devDependencies": {
+      "mocha" : "0.2.x",
+      "should" : "0.3.x"
+  },
   "main": "index",
   "directories": {
     "lib": "./lib"
