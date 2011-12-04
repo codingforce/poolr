@@ -4,28 +4,27 @@ var should = require('should'),
 
 var randomSleep = function(callback) {
     called ++;
-    var delay = Math.ceil(Math.random() * 1000);
+    var delay = Math.ceil(Math.random() * 200);
     setTimeout(function(){
         callback(null, 'returning after ' + delay/1000 + ' secs.');
     }, delay);
 }
 
-exports['all tasks are called'] = function(){
-
-    var timeout = setTimeout(function () { throw 'Timeout';  }, 11000);
-
-    for (var i=0; i<10; i++) {
-        (function(i){
-            // console.log('Launching task ' + i);
-            delayPool._addTask(randomSleep, function(err, res) {
-                // console.log('Task ' + i + ' returned: ' + res);
-            });
-        })(i);
-    }
-
-    delayPool._addTask(function(cb){return cb(null);},function(dummy) {
-        called.should.eql(10);
-        clearTimeout(timeout);
+describe('poolr with limit 5', function() {
+    it('should call all tasks', function(done) {
+        var outstanding = 0;
+        for (var i=0; i<10; i++) {
+            outstanding++;
+            (function(i){
+                delayPool._addTask(randomSleep, function(err, res) {
+                    if (--outstanding === 0) {
+                        called.should.eql(10);
+                        done();
+                    }
+                });
+            })(i);
+        }
     });
-}
+});
+
 

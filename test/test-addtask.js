@@ -8,31 +8,36 @@ var randomSleep = function(payload, callback) {
     called ++;
     running ++;
     running.should.be.below(3);
-    // console.log('Called with arg: ' + payload);
     var args = Array.prototype.slice.call(arguments);
 
-    var delay = Math.ceil(Math.random() * 1000);
-    // console.log(payload + ' (Sleeping ' + delay/1000 + ' seconds)')
+    var delay = Math.ceil(Math.random() * 500);
     setTimeout(function(){ running--; return callback(null, payload); }, delay);
 }
 
-exports['test limit is kept'] = function(){
+describe('poolr', function() {
+    describe('with limit two', function() {
+        it('should not run more than two tasks', function(done) {
+            var outstanding = 0;
+            for (var i=0; i<10; i++) {
+                outstanding++;
+                (function(i){
+                    running.should.be.below(3);
+                    return delayPool.addTask(randomSleep, i, function(err, res){
+                        running.should.be.below(3);
+                        if (--outstanding === 0) {
+                            done();
+                        }
+                    });
+                })(i);
+            }
+        });
 
-    var timeout = setTimeout(function () { throw 'Timeout';  }, 11000);
-
-    for (var i=0; i<10; i++) {
-        (function(i){
-            running.should.be.below(3);
-            return delayPool.addTask(randomSleep, i, function(err, res) {
-                running.should.be.below(3);
-                // console.log('Result from ' + i + ' : ' + res);
+        it('should have been called 10 times', function(done) {
+            delayPool._addTask(function(cb){return cb(null);},function(dummy) {
+                called.should.eql(10);
+                done();
             });
-        })(i);
-    }
-
-    delayPool._addTask(function(cb){return cb(null);},function(dummy) {
-        called.should.eql(10);
-        clearTimeout(timeout);
+        });
     });
-}
+});
 
