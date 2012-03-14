@@ -1,6 +1,6 @@
 {
   "name": "poolr",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "limit parallel execution and serialze when limit is reached",
   "homepage": "https://github.com/codingforce/poolr",
   "repository": {

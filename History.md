@@ -22,3 +22,8 @@
  * only emit 'idle' when queue length is zero (Seth LaForge)
  * fix tests and move to bdd
 
+0.0.7 / 2012-03-14
+==================
+
+ * support unlimited number of arguments for callback functions
+
