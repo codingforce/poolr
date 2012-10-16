@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/codingforce/poolr.png)](http://travis-ci.org/codingforce/poolr)
+
 # poolr.js
 
   Small but usefull resource pooling/limiting/throttling library for node.js.
