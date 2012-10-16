@@ -8,10 +8,7 @@ describe('library', function() {
         });
     });
     describe('constructor', function() {
-        it('should respond to "createPool"', function() {
-            poolr.should.respondTo('createPool');
-        });
-        it('should create an object', function() {
+        it('createPool() should create an object', function() {
             var testPool = poolr.createPool(1);
             testPool.should.be.a('object');
         });
