@@ -1,6 +1,6 @@
 default: test
 
 test:
-	@./node_modules/.bin/mocha --ui bdd --reporter list test/*
+	@./node_modules/.bin/mocha --ui bdd # --reporter spec
 
 .PHONY: test
